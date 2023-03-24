@@ -1,51 +1,39 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
-
-
-//hiện thi form từ điển
-Route::get('/tudien', function () {
+Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/tudien', function (Request $request) {
-    $tudien = $request->input('tudien');
-    $tudien = [
-        "hello" => "xin chào",
-       "goodbye" => "tạm biệt",
-       "dog" => "con chó",
-       "cat" => "con mèo",
-       "hourse" => "con ngựa"
-    ];
-    $searchWord = $_POST["tudien"];
-        $flag = 0;
-        foreach ($tudien as $key => $value) {
-            if ($key == $searchWord) {
-                echo  $value;
-                echo "<br/>";
-                $flag = 1;
-                break;
-            }
-            else if($searchWord == $value){
-                echo  $key;
-                $flag = 1;
-                break;
+Route::get('/', function () {
+    echo "<h2>This is Home page</h2>";
+});
 
-            }
-        }
-        if ($flag == 0) {
-            echo "Không tìm thấy từ cần tra.";
-        }
+Route::get('/about', function () {
+    echo "<h2>This is About page</h2>";
+});
 
-    });
+Route::get('/contact', function () {
+    echo "<h2>This is Contact page</h2>";
+});
+Route::get('/user', function () {
+    return view('user', ['name'=>'Masud Alam']);
+});
+Route::get('/user/{name}', function ($name) {
+    echo "<h2>User name is $name</h2>";
+});
+Route::get('/user-name/{name?}', function ($name = 'Sohel') {
+    echo "<h2>User name is $name</h2>";
+});
+Route::get('/', 'App\Http\Controllers\HomeController@index');
