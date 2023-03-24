@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +13,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+
+
+//hiện thi form từ điển
+Route::get('/tudien', function () {
     return view('welcome');
 });
-Route::get('bai_tap', function () {
-    return view('bai_tap');
-});
-Route::post('bai_tap', function (Illuminate\Http\Request $request) {
-    $productDescription = $request->input('productDescription');
-    $discountPrice = $request->input('discountPrice');
-    $discountPercent =  $request->input('discountPercent');
-    $discountAmount = $discountPrice * $discountPercent * 0.1;
-    return view('baitap', compact(['discountAmount', 'discountPercent', 'productDescription']));
-});
+Route::post('/tudien', function (Request $request) {
+    $tudien = $request->input('tudien');
+    $tudien = [
+        "hello" => "xin chào",
+       "goodbye" => "tạm biệt",
+       "dog" => "con chó",
+       "cat" => "con mèo",
+       "hourse" => "con ngựa"
+    ];
+    $searchWord = $_POST["tudien"];
+        $flag = 0;
+        foreach ($tudien as $key => $value) {
+            if ($key == $searchWord) {
+                echo  $value;
+                echo "<br/>";
+                $flag = 1;
+                break;
+            }
+            else if($searchWord == $value){
+                echo  $key;
+                $flag = 1;
+                break;
+
+            }
+        }
+        if ($flag == 0) {
+            echo "Không tìm thấy từ cần tra.";
+        }
+
+    });
